@@ -1,3 +1,4 @@
+import asyncio
 import pygame
 import sys
 import json
@@ -216,15 +217,18 @@ class BreadClicker:
 
     # ── save / load ────────────────────────────────────────────────────────────
     def save(self):
-        data = {
-            "bread":       self.bread,
-            "total_bread": self.total_bread,
-            "prestige":    self.prestige,
-            "buildings":   [b.count for b in self.buildings],
-            "upgrades":    [u.bought for u in self.upgrades],
-        }
-        with open(SAVE_FILE, "w") as f:
-            json.dump(data, f)
+        try:
+            data = {
+                "bread":       self.bread,
+                "total_bread": self.total_bread,
+                "prestige":    self.prestige,
+                "buildings":   [b.count for b in self.buildings],
+                "upgrades":    [u.bought for u in self.upgrades],
+            }
+            with open(SAVE_FILE, "w") as f:
+                json.dump(data, f)
+        except Exception:
+            pass
 
     def load(self):
         if not os.path.exists(SAVE_FILE):
@@ -697,14 +701,19 @@ class BreadClicker:
                         self.scroll_up2 = max(0, min(max_s, self.scroll_up2 - ev.y))
 
     # ── main loop ──────────────────────────────────────────────────────────────
-    def run(self):
+    async def run(self):
         while True:
             dt = self.clock.tick(FPS)
             self.handle_events()
             self.update(dt)
             self.draw()
+            await asyncio.sleep(0)
+
+
+async def main():
+    game = BreadClicker()
+    await game.run()
 
 
 if __name__ == "__main__":
-    game = BreadClicker()
-    game.run()
+    asyncio.run(main())
