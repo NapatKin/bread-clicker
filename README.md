@@ -48,9 +48,8 @@ python bread_clicker.py
    git add bread_clicker.py requirements.txt .gitignore README.md
    git commit -m "Initial commit: Bread Clicker"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/bread-clicker.git
+   git remote add origin https://github.com/NapatKin/bread-clicker.git
    git push -u origin main
    ```
-   Replace `YOUR_USERNAME` with your actual GitHub username.
 
-4. **Done!**  Your game is live at `https://github.com/YOUR_USERNAME/bread-clicker`
+4. **Done!**  Your game is live at `https://github.com/NapatKin/bread-clicker`
